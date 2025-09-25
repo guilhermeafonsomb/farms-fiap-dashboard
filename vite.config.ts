@@ -20,6 +20,8 @@ export default defineConfig({
         "react-router-dom",
         "@tanstack/react-query",
         "clsx",
+        "zustand",
+        "appwrite",
       ],
     }),
   ],
