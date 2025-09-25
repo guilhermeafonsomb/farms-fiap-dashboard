@@ -22,6 +22,8 @@ export default defineConfig({
         "clsx",
         "zustand",
         "appwrite",
+        "chart.js",
+        "react-chartjs-2",
       ],
     }),
   ],

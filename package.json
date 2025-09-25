@@ -15,8 +15,10 @@
     "@tanstack/react-table": "^8.21.3",
     "@vitejs/plugin-react": "^5.0.3",
     "appwrite": "^20.1.0",
+    "chart.js": "^4.5.0",
     "clsx": "^2.1.1",
     "react": "^19.1.1",
+    "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.1",
     "zustand": "^5.0.8"

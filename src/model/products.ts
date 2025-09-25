@@ -6,3 +6,10 @@ export type Product = Models.Row & {
   vendas: number;
   periodo: "Semanal" | "Mensal" | "Anual";
 };
+
+export type ProductChart = {
+  nome: string;
+  lucro: number;
+  vendas: number;
+  periodo: "Semanal" | "Mensal" | "Anual";
+};
