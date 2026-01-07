@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { DashboardFilter } from "../../components/dashboardFilter";
-import { Table } from "../../components/table";
-import { useProductsByPeriod } from "../../hooks/useProductsByPeriod";
-import type { Product, ProductChart } from "../../model/products";
-import { useDashboardFilterStore } from "../../store/dashboard";
-import { formatCurrency } from "../../utils/currencyFormatter";
-import { ProductBarChart } from "../../components/productBarChart ";
+import { DashboardFilter } from "@/components/dashboardFilter";
+import { Table } from "@/components/table";
+import { useProductsByPeriod } from "@/hooks/useProductsByPeriod";
+import type { Product, ProductChart } from "@/model/products";
+import { useDashboardFilterStore } from "@/store/dashboard";
+import { formatCurrency } from "@/utils/currencyFormatter";
+import { ProductBarChart } from "@/components/productBarChart ";
 
 export const Dashboard = () => {
   const { selectFilterOption } = useDashboardFilterStore();

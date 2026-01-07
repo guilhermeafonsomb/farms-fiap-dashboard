@@ -77,5 +77,5 @@ export const ProductBarChart = ({ data }: ProductBarChartProps) => {
     ],
   };
 
-  return <Bar options={options as any} data={chartData} />;
+  return <Bar data-testid="bar" options={options as any} data={chartData} />;
 };
