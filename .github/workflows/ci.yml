@@ -1,4 +1,4 @@
-name: CI Pipeline -  DASHBOARD
+name: CI Pipeline - DASHBOARD
 
 on:
   push:
@@ -7,8 +7,10 @@ on:
     branches: [main]
 
 jobs:
-  install:
+  quality:
+    name: Lint & Test
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,47 +22,24 @@ jobs:
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
-
         with:
           node-version: "22"
           cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm i
+        run: pnpm install --frozen-lockfile
 
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        id: cache-node-modules
-        with:
-          path: |
-            node_modules
-            ~/.cache/ms-playwright
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules-
-  test:
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Run Lint
+        run: pnpm lint
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-
-      - name: Run unit tests
+      - name: Run Tests
         run: pnpm test
 
   build:
-    needs: test
+    name: Build Application
+    needs: quality
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -74,6 +53,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+          cache: "pnpm"
 
-      - name: Run build
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Project
         run: pnpm build
