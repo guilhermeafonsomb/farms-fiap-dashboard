@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useState } from "react";
+import { useDashboardFilterStore } from "@/store/dashboard";
 
 export const FilterOptions = {
   WEEKLY: "Semanal",
@@ -8,12 +8,13 @@ export const FilterOptions = {
 } as const;
 
 export const DashboardFilter = () => {
-  const [selectFilterOption, setSelectFilterOption] =
-    useState<keyof typeof FilterOptions>("MONTHLY");
+  const { selectFilterOption, setSelectFilterOption } =
+    useDashboardFilterStore();
 
   return (
     <div className="rounded-lg bg-primary-100 flex flex-row h-14 items-center justify-evenly px-3">
       <button
+        data-testid="weekly-button"
         onClick={() => setSelectFilterOption("WEEKLY")}
         className={clsx(
           "text-center py-2 px-4 sm:px-9 rounded-lg ",
@@ -33,6 +34,7 @@ export const DashboardFilter = () => {
 
       <button
         onClick={() => setSelectFilterOption("MONTHLY")}
+        data-testid="monthly-button"
         className={clsx(
           "text-center py-2 px-4 sm:px-10 rounded-lg ",
           selectFilterOption === "MONTHLY" && "bg-white"
@@ -51,6 +53,7 @@ export const DashboardFilter = () => {
 
       <button
         onClick={() => setSelectFilterOption("YEARLY")}
+        data-testid="yearly-button"
         className={clsx(
           "text-center py-2 px-4 sm:px-10 rounded-lg ",
           selectFilterOption === "YEARLY" && "bg-white"

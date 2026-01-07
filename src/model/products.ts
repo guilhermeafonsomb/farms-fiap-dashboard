@@ -1,6 +1,4 @@
-import type { Models } from "appwrite";
-
-export type Product = Models.Row & {
+export type Product = {
   nome: string;
   lucro: number;
   vendas: number;
