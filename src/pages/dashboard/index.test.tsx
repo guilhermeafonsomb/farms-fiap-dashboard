@@ -11,7 +11,7 @@ vi.mock("@/components/productBarChart ", () => ({
 }));
 
 vi.mock("@/components/table", () => ({
-  Table: ({ data }: { data: any[] }) => (
+  Table: ({ data }: { data: { products: string }[] }) => (
     <div data-testid="mock-table">
       {data.map((d, i) => (
         <div key={i}>{d.products}</div>

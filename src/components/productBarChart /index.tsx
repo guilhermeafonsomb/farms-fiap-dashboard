@@ -6,6 +6,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  type ChartOptions,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
@@ -77,5 +78,11 @@ export const ProductBarChart = ({ data }: ProductBarChartProps) => {
     ],
   };
 
-  return <Bar data-testid="bar" options={options as any} data={chartData} />;
+  return (
+    <Bar
+      data-testid="bar"
+      options={options as ChartOptions<"bar">}
+      data={chartData}
+    />
+  );
 };
