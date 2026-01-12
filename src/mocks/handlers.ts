@@ -1,11 +1,9 @@
 import { http, HttpResponse } from "msw";
 
 export const handlers = [
-  // Matches any endpoint ending with /rows and containing tablesdb/ and tables/
   http.get("**/tablesdb/*/tables/*/rows", ({ request }) => {
     const url = new URL(request.url);
 
-    // Check all query parameters for the period value
     const urlString = url.toString();
     const isWeekly = urlString.includes("Semanal");
 
