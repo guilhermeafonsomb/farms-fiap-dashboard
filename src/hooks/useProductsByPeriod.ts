@@ -1,5 +1,5 @@
+import { fetchProductsByPeriod } from "@/services/products";
 import { useQuery } from "@tanstack/react-query";
-import { fetchProductsByPeriod } from "@/services/produtos";
 
 type Period = "Semanal" | "Mensal" | "Anual";
 
