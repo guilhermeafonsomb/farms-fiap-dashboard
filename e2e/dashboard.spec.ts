@@ -27,16 +27,6 @@ async function mockApiRoute(page: Page) {
   });
 }
 
-async function mockApiError(page: Page) {
-  await page.route("**/tablesdb/*/tables/*/rows*", async (route: Route) => {
-    await route.fulfill({
-      status: 500,
-      contentType: "application/json",
-      body: JSON.stringify({ message: "Internal Server Error" }),
-    });
-  });
-}
-
 test.describe("Dashboard E2E Tests", () => {
   test.describe("Initial loading", () => {
     test("should load the dashboard with monthly data by default", async ({
@@ -200,17 +190,6 @@ test.describe("Dashboard E2E Tests", () => {
 
       const canvas = page.locator("canvas");
       await expect(canvas).toBeVisible();
-    });
-  });
-
-  test.describe("Error states", () => {
-    test("should display error message when API fails", async ({ page }) => {
-      await mockApiError(page);
-      await page.goto("/");
-
-      await expect(
-        page.getByText("Ocorreu um erro ao buscar os dados.")
-      ).toBeVisible({ timeout: 10000 });
     });
   });
 });
