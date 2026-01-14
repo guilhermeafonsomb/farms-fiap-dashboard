@@ -12,6 +12,22 @@ describe("Error tests", () => {
     ).toBeInTheDocument();
   });
 
+  it("should have proper ARIA attributes", () => {
+    const { container } = render(<Error />);
+    const alertDiv = container.querySelector('[role="alert"]');
+
+    expect(alertDiv).toBeInTheDocument();
+    expect(alertDiv).toHaveAttribute("aria-live", "assertive");
+  });
+
+  it("should render error heading", () => {
+    const { getByRole } = render(<Error />);
+
+    expect(
+      getByRole("heading", { level: 2, name: "Erro ao carregar dados" })
+    ).toBeInTheDocument();
+  });
+
   it("should reload page when clicking reload button", () => {
     const reloadMock = vi.fn();
     Object.defineProperty(window, "location", {
