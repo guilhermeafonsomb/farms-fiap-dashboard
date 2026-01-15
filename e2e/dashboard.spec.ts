@@ -68,9 +68,13 @@ test.describe("Dashboard E2E Tests", () => {
 
       await page.goto("/");
 
-      await expect(page.getByText("Carregando...")).toBeVisible();
+      await expect(
+        page.getByText("Carregando dados do dashboard...")
+      ).toBeVisible();
 
-      await expect(page.getByText("Carregando...")).not.toBeVisible({
+      await expect(
+        page.getByText("Carregando dados do dashboard...")
+      ).not.toBeVisible({
         timeout: 5000,
       });
       await expect(page.getByText("Produto Mensal A")).toBeVisible();
