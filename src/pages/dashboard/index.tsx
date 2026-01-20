@@ -6,6 +6,8 @@ import type { Product, ProductChart } from "@/model/products";
 import { useDashboardFilterStore } from "@/store/dashboard";
 import { formatCurrency } from "@/utils/currencyFormatter";
 import { ProductBarChart } from "@/components/productBarChart ";
+import { Error } from "@/components/error";
+import { Loading } from "@/components/loading";
 
 export const Dashboard = () => {
   const { selectFilterOption } = useDashboardFilterStore();
@@ -37,19 +39,11 @@ export const Dashboard = () => {
   }, [products]);
 
   if (isLoading) {
-    return (
-      <section>
-        <p className="text-black">Carregando...</p>
-      </section>
-    );
+    return <Loading />;
   }
 
   if (isError) {
-    return (
-      <section>
-        <p className="text-black">Ocorreu um erro ao buscar os dados.</p>
-      </section>
-    );
+    return <Error />;
   }
 
   const tableColumns = [
@@ -74,7 +68,10 @@ export const Dashboard = () => {
 
       <h2 className="text-lg text-black font-bold">Produtos por maior lucro</h2>
 
-      <section className="border border-primary-200 pr-12 rounded-lg">
+      <section
+        className="border border-primary-200 pr-12 rounded-lg"
+        aria-label="Barra de Lucro por produto"
+      >
         <ProductBarChart data={productData} />
       </section>
 

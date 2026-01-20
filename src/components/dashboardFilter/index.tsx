@@ -12,14 +12,20 @@ export const DashboardFilter = () => {
     useDashboardFilterStore();
 
   return (
-    <div className="rounded-lg bg-primary-100 flex flex-row h-14 items-center justify-evenly px-3">
+    <div
+      className="rounded-lg bg-primary-100 flex flex-row h-14 items-center justify-evenly px-3"
+      role="group"
+      aria-label="Filtro de período"
+    >
       <button
         data-testid="weekly-button"
         onClick={() => setSelectFilterOption("WEEKLY")}
         className={clsx(
-          "text-center py-2 px-4 sm:px-9 rounded-lg ",
+          "text-center py-2 px-4 sm:px-9 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2",
           selectFilterOption === "WEEKLY" && "bg-white"
         )}
+        aria-pressed={selectFilterOption === "WEEKLY"}
+        aria-label="Filtrar por dados semanais"
       >
         <p
           className={clsx(
@@ -36,9 +42,11 @@ export const DashboardFilter = () => {
         onClick={() => setSelectFilterOption("MONTHLY")}
         data-testid="monthly-button"
         className={clsx(
-          "text-center py-2 px-4 sm:px-10 rounded-lg ",
+          "text-center py-2 px-4 sm:px-10 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2",
           selectFilterOption === "MONTHLY" && "bg-white"
         )}
+        aria-pressed={selectFilterOption === "MONTHLY"}
+        aria-label="Filtrar por dados mensais"
       >
         <p
           className={clsx(
@@ -55,9 +63,11 @@ export const DashboardFilter = () => {
         onClick={() => setSelectFilterOption("YEARLY")}
         data-testid="yearly-button"
         className={clsx(
-          "text-center py-2 px-4 sm:px-10 rounded-lg ",
+          "text-center py-2 px-4 sm:px-10 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2",
           selectFilterOption === "YEARLY" && "bg-white"
         )}
+        aria-pressed={selectFilterOption === "YEARLY"}
+        aria-label="Filtrar por dados anuais"
       >
         <p
           className={clsx(

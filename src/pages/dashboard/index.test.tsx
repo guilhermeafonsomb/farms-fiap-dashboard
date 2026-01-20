@@ -46,7 +46,7 @@ describe("Dashboard tests", () => {
     });
 
     const { getByText } = render(<Dashboard />);
-    expect(getByText("Carregando...")).toBeInTheDocument();
+    expect(getByText("Carregando dados do dashboard...")).toBeInTheDocument();
   });
 
   it("should render error state", () => {
@@ -57,8 +57,9 @@ describe("Dashboard tests", () => {
     });
 
     const { getByText } = render(<Dashboard />);
+    expect(getByText("Erro ao carregar dados")).toBeInTheDocument();
     expect(
-      getByText("Ocorreu um erro ao buscar os dados.")
+      getByText(/Ocorreu um erro ao buscar os dados do dashboard/i)
     ).toBeInTheDocument();
   });
 

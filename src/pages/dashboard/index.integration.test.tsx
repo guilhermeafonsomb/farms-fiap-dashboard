@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from "@/test/test-utils";
+import { render, fireEvent, waitFor } from "@/test/test-utils";
 import { Dashboard } from ".";
 import { vi } from "vitest";
 
@@ -28,19 +28,19 @@ vi.mock("@/components/table", () => ({
 
 describe("Dashboard Integration", () => {
   it("should update data when filter changes", async () => {
-    render(<Dashboard />);
+    const { getByText, queryByText } = render(<Dashboard />);
 
     await waitFor(() => {
-      expect(screen.getByText("Produto Mensal - 1000")).toBeInTheDocument();
+      expect(getByText("Produto Mensal - 1000")).toBeInTheDocument();
     });
 
-    const weeklyButton = screen.getByText("Semanal");
+    const weeklyButton = getByText("Semanal");
     fireEvent.click(weeklyButton);
 
     await waitFor(() => {
-      expect(screen.getByText("Produto Semanal - 500")).toBeInTheDocument();
+      expect(getByText("Produto Semanal - 500")).toBeInTheDocument();
     });
 
-    expect(screen.queryByText("Produto Mensal - 1000")).not.toBeInTheDocument();
+    expect(queryByText("Produto Mensal - 1000")).not.toBeInTheDocument();
   });
 });
