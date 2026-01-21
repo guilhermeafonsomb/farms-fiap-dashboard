@@ -20,6 +20,23 @@
   ],
   "headers": [
     {
+      "source": "/remoteEntry.js",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://farms-fiap.vercel.app"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, OPTIONS"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        }
+      ]
+    },
+    {
       "source": "/assets/(.*)",
       "headers": [
         {
@@ -49,14 +66,22 @@
         },
         {
           "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
+          "value": "ALLOW-FROM https://farms-fiap.vercel.app"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://farms-fiap.vercel.app"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, OPTIONS"
         }
       ]
     }
   ],
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/",
       "destination": "https://farms-fiap.vercel.app",
       "permanent": false
     }
