@@ -56,7 +56,7 @@
   ],
   "redirects": [
     {
-      "source": "/",
+      "source": "/:path*",
       "destination": "https://farms-fiap.vercel.app",
       "permanent": false
     }
