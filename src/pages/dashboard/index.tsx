@@ -4,21 +4,22 @@ import { Table } from "@/components/table";
 import { useProductsByPeriod } from "@/hooks/useProductsByPeriod";
 import type { Product, ProductChart } from "@/model/products";
 import { useDashboardFilterStore } from "@/store/dashboard";
-import { formatCurrency } from "@/utils/currencyFormatter";
+import { formatCurrency } from "@/utils/currencyFormatter/currencyFormatter";
 import { ProductBarChart } from "@/components/productBarChart ";
 import { Error } from "@/components/error";
 import { Loading } from "@/components/loading";
+import { translatePeriod } from "@/utils/translatePeriod/transformData";
 
 export const Dashboard = () => {
   const { selectFilterOption } = useDashboardFilterStore();
 
-  const periodMap: Record<string, "Semanal" | "Mensal" | "Anual"> = {
-    WEEKLY: "Semanal",
-    MONTHLY: "Mensal",
-    YEARLY: "Anual",
+  const periodMap: Record<string, "WEEKLY" | "MONTHLY" | "YEARLY"> = {
+    WEEKLY: "WEEKLY",
+    MONTHLY: "MONTHLY",
+    YEARLY: "YEARLY",
   };
 
-  const period = periodMap[selectFilterOption] ?? "Mensal";
+  const period = periodMap[selectFilterOption] ?? "MONTHLY";
 
   const { data: products, isLoading, isError } = useProductsByPeriod(period);
 
@@ -26,10 +27,10 @@ export const Dashboard = () => {
 
   const transformChartData = (apiData: Product[]) => {
     const formatData = apiData.map((item) => ({
-      nome: item.nome,
-      lucro: item.lucro,
-      vendas: item.vendas,
-      periodo: item.periodo,
+      name: item.name,
+      profit: item.profit,
+      sales: item.sales,
+      period: item.period,
     }));
     setProductData(formatData);
   };
@@ -55,10 +56,10 @@ export const Dashboard = () => {
 
   const transformData = (apiData: Product[]) => {
     return apiData.map((item) => ({
-      products: item.nome,
-      profit: formatCurrency(item.lucro),
-      sales: item.vendas,
-      period: item.periodo,
+      products: item.name,
+      profit: formatCurrency(item.profit),
+      sales: item.sales,
+      period: translatePeriod(item.period),
     }));
   };
 

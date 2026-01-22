@@ -26,7 +26,7 @@ describe("Dashboard tests", () => {
       nome: "Produto A",
       lucro: 100,
       vendas: 10,
-      periodo: "Mensal",
+      periodo: "MONTHLY",
     },
   ];
 
@@ -59,7 +59,7 @@ describe("Dashboard tests", () => {
     const { getByText } = render(<Dashboard />);
     expect(getByText("Erro ao carregar dados")).toBeInTheDocument();
     expect(
-      getByText(/Ocorreu um erro ao buscar os dados do dashboard/i)
+      getByText(/Ocorreu um erro ao buscar os dados do dashboard/i),
     ).toBeInTheDocument();
   });
 

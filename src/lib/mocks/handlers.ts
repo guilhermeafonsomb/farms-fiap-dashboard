@@ -1,21 +1,23 @@
 import { http, HttpResponse } from "msw";
 
+export const APPWRITE_ENDPOINT = import.meta.env.VITE_APPWRITE_ENDPOINT;
+
 export const handlers = [
-  http.get("**/tablesdb/*/tables/*/rows", ({ request }) => {
+  http.get(`${APPWRITE_ENDPOINT}/tablesdb/*/tables/*/rows`, ({ request }) => {
     const url = new URL(request.url);
 
     const urlString = url.toString();
-    const isWeekly = urlString.includes("Semanal");
+    const isWeekly = urlString.includes("WEEKLY");
 
     if (isWeekly) {
       return HttpResponse.json({
         total: 1,
         rows: [
           {
-            nome: "Produto Semanal",
-            lucro: 500,
-            vendas: 50,
-            periodo: "Semanal",
+            name: "Produto Semanal",
+            profit: 500,
+            sales: 50,
+            period: "WEEKLY",
             $id: "1",
           },
         ],
@@ -26,10 +28,10 @@ export const handlers = [
       total: 1,
       rows: [
         {
-          nome: "Produto Mensal",
-          lucro: 1000,
-          vendas: 100,
-          periodo: "Mensal",
+          name: "Produto Mensal",
+          profit: 1000,
+          sales: 100,
+          period: "MONTHLY",
           $id: "2",
         },
       ],

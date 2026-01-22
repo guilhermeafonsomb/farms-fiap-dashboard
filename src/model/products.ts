@@ -1,13 +1,13 @@
 export type Product = {
-  nome: string;
-  lucro: number;
-  vendas: number;
-  periodo: "Semanal" | "Mensal" | "Anual";
+  name: string;
+  profit: number;
+  sales: number;
+  period: "WEEKLY" | "MONTHLY" | "YEARLY";
 };
 
 export type ProductChart = {
-  nome: string;
-  lucro: number;
-  vendas: number;
-  periodo: "Semanal" | "Mensal" | "Anual";
+  name: string;
+  profit: number;
+  sales: number;
+  period: "WEEKLY" | "MONTHLY" | "YEARLY";
 };

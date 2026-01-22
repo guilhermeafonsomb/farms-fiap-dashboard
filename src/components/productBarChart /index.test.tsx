@@ -27,16 +27,16 @@ vi.mock("chart.js", () => ({
 describe("ProductBarChart tests", () => {
   const mockData = [
     {
-      nome: "Produto A",
-      lucro: 100,
-      vendas: 10,
-      periodo: "Mensal" as const,
+      name: "Produto A",
+      profit: 100,
+      sales: 10,
+      period: "MONTHLY" as const,
     },
     {
-      nome: "Produto B",
-      lucro: 200,
-      vendas: 20,
-      periodo: "Mensal" as const,
+      name: "Produto B",
+      profit: 200,
+      sales: 20,
+      period: "MONTHLY" as const,
     },
   ];
 
@@ -47,7 +47,7 @@ describe("ProductBarChart tests", () => {
 
     const chart = getByTestId("mock-bar-chart");
     const passedData = JSON.parse(
-      chart.getAttribute("data-chart-data") || "{}"
+      chart.getAttribute("data-chart-data") || "{}",
     );
 
     expect(passedData.labels).toEqual(["Produto A", "Produto B"]);
@@ -59,7 +59,7 @@ describe("ProductBarChart tests", () => {
 
     const chart = getByTestId("mock-bar-chart");
     const passedData = JSON.parse(
-      chart.getAttribute("data-chart-data") || "{}"
+      chart.getAttribute("data-chart-data") || "{}",
     );
 
     expect(passedData.labels).toEqual([]);
@@ -72,7 +72,7 @@ describe("ProductBarChart tests", () => {
 
     const chart = getByTestId("mock-bar-chart");
     const passedData = JSON.parse(
-      chart.getAttribute("data-chart-data") || "{}"
+      chart.getAttribute("data-chart-data") || "{}",
     );
 
     expect(passedData.datasets[0].categoryPercentage).toBe(0.4);
@@ -84,7 +84,7 @@ describe("ProductBarChart tests", () => {
 
     const chart = getByTestId("mock-bar-chart");
     const passedData = JSON.parse(
-      chart.getAttribute("data-chart-data") || "{}"
+      chart.getAttribute("data-chart-data") || "{}",
     );
 
     expect(passedData.datasets[0].categoryPercentage).toBe(0.8);
