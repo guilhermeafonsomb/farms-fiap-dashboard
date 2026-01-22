@@ -4,10 +4,11 @@ import { Table } from "@/components/table";
 import { useProductsByPeriod } from "@/hooks/useProductsByPeriod";
 import type { Product, ProductChart } from "@/model/products";
 import { useDashboardFilterStore } from "@/store/dashboard";
-import { formatCurrency } from "@/utils/currencyFormatter";
+import { formatCurrency } from "@/utils/currencyFormatter/currencyFormatter";
 import { ProductBarChart } from "@/components/productBarChart ";
 import { Error } from "@/components/error";
 import { Loading } from "@/components/loading";
+import { translatePeriod } from "@/utils/translatePeriod/transformData";
 
 export const Dashboard = () => {
   const { selectFilterOption } = useDashboardFilterStore();
@@ -58,7 +59,7 @@ export const Dashboard = () => {
       products: item.name,
       profit: formatCurrency(item.profit),
       sales: item.sales,
-      period: item.period,
+      period: translatePeriod(item.period),
     }));
   };
 
