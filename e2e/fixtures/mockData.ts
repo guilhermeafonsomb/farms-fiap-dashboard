@@ -1,58 +1,58 @@
 type Product = {
-  nome: string;
-  lucro: number;
-  vendas: number;
-  periodo: "Semanal" | "Mensal" | "Anual";
+  name: string;
+  profit: number;
+  sales: number;
+  period: "WEEKLY" | "MONTHLY" | "YEARLY";
   $id?: string;
 };
 
 export const mockProductsWeekly: Product[] = [
   {
-    nome: "Produto Semanal A",
-    lucro: 500,
-    vendas: 50,
-    periodo: "Semanal",
+    name: "Produto Semanal A",
+    profit: 500,
+    sales: 50,
+    period: "WEEKLY",
     $id: "1",
   },
   {
-    nome: "Produto Semanal B",
-    lucro: 300,
-    vendas: 30,
-    periodo: "Semanal",
+    name: "Produto Semanal B",
+    profit: 300,
+    sales: 30,
+    period: "WEEKLY",
     $id: "2",
   },
 ];
 
 export const mockProductsMonthly: Product[] = [
   {
-    nome: "Produto Mensal A",
-    lucro: 1000,
-    vendas: 100,
-    periodo: "Mensal",
+    name: "Produto Mensal A",
+    profit: 1000,
+    sales: 100,
+    period: "MONTHLY",
     $id: "3",
   },
   {
-    nome: "Produto Mensal B",
-    lucro: 800,
-    vendas: 80,
-    periodo: "Mensal",
+    name: "Produto Mensal B",
+    profit: 800,
+    sales: 80,
+    period: "MONTHLY",
     $id: "4",
   },
 ];
 
 export const mockProductsYearly: Product[] = [
   {
-    nome: "Produto Anual A",
-    lucro: 12000,
-    vendas: 1200,
-    periodo: "Anual",
+    name: "Produto Anual A",
+    profit: 12000,
+    sales: 1200,
+    period: "YEARLY",
     $id: "5",
   },
   {
-    nome: "Produto Anual B",
-    lucro: 10000,
-    vendas: 1000,
-    periodo: "Anual",
+    name: "Produto Anual B",
+    profit: 10000,
+    sales: 1000,
+    period: "YEARLY",
     $id: "6",
   },
 ];

@@ -4,14 +4,15 @@ import { mockApiResponse } from "./fixtures/mockData";
 async function mockApiRoute(page: Page) {
   await page.route("**/tablesdb/*/tables/*/rows*", async (route: Route) => {
     const url = route.request().url();
+    const normalizedUrl = decodeURIComponent(url);
 
-    if (url.includes("Semanal")) {
+    if (normalizedUrl.includes("WEEKLY")) {
       await route.fulfill({
         status: 200,
         contentType: "application/json",
         body: JSON.stringify(mockApiResponse.weekly),
       });
-    } else if (url.includes("Anual")) {
+    } else if (normalizedUrl.includes("YEARLY")) {
       await route.fulfill({
         status: 200,
         contentType: "application/json",
@@ -36,14 +37,14 @@ test.describe("Dashboard E2E Tests", () => {
       await page.goto("/");
 
       await expect(
-        page.getByRole("heading", { name: "Dashboard de Produtos" })
+        page.getByRole("heading", { name: "Dashboard de Produtos" }),
       ).toBeVisible();
 
       await expect(
-        page.getByRole("heading", { name: "Produtos por maior lucro" })
+        page.getByRole("heading", { name: "Produtos por maior lucro" }),
       ).toBeVisible();
       await expect(
-        page.getByRole("heading", { name: "Produtos por maior lucro" })
+        page.getByRole("heading", { name: "Produtos por maior lucro" }),
       ).toBeVisible();
 
       const monthlyButton = page.getByTestId("monthly-button");
@@ -69,11 +70,11 @@ test.describe("Dashboard E2E Tests", () => {
       await page.goto("/");
 
       await expect(
-        page.getByText("Carregando dados do dashboard...")
+        page.getByText("Carregando dados do dashboard..."),
       ).toBeVisible();
 
       await expect(
-        page.getByText("Carregando dados do dashboard...")
+        page.getByText("Carregando dados do dashboard..."),
       ).not.toBeVisible({
         timeout: 5000,
       });
@@ -170,16 +171,16 @@ test.describe("Dashboard E2E Tests", () => {
       await page.waitForTimeout(1000);
 
       await expect(
-        page.getByRole("columnheader", { name: "Produtos" })
+        page.getByRole("columnheader", { name: "Produtos" }),
       ).toBeVisible();
       await expect(
-        page.getByRole("columnheader", { name: "Lucro" })
+        page.getByRole("columnheader", { name: "Lucro" }),
       ).toBeVisible();
       await expect(
-        page.getByRole("columnheader", { name: "Vendas" })
+        page.getByRole("columnheader", { name: "Vendas" }),
       ).toBeVisible();
       await expect(
-        page.getByRole("columnheader", { name: "Período" })
+        page.getByRole("columnheader", { name: "Período" }),
       ).toBeVisible();
 
       await expect(page.getByText("Produto Mensal A")).toBeVisible();

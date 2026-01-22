@@ -1,5 +1,5 @@
 import { Account, Client, Databases, TablesDB } from "appwrite";
-import { APPWRITE_ENDPOINT } from "./mocks/handlers";
+const APPWRITE_ENDPOINT = import.meta.env.VITE_APPWRITE_ENDPOINT;
 
 const client = new Client();
 
