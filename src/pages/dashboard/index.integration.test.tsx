@@ -6,8 +6,8 @@ vi.mock("@/components/productBarChart ", () => ({
   ProductBarChart: ({ data }: { data: any[] }) => (
     <div data-testid="chart-container">
       {data.map((d) => (
-        <div key={d.nome} data-testid="chart-item">
-          {d.nome} - {d.lucro}
+        <div key={d.name} data-testid="chart-item">
+          {d.name} - {d.profit}
         </div>
       ))}
     </div>

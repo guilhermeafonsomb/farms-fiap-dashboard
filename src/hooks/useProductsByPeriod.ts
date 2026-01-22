@@ -1,7 +1,7 @@
 import { fetchProductsByPeriod } from "@/services/products";
 import { useQuery } from "@tanstack/react-query";
 
-type Period = "Semanal" | "Mensal" | "Anual";
+type Period = "WEEKLY" | "MONTHLY" | "YEARLY";
 
 export const useProductsByPeriod = (period: Period) => {
   return useQuery({

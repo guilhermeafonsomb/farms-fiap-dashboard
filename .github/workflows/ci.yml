@@ -67,6 +67,10 @@ jobs:
 
       - name: Run unit tests with coverage
         run: pnpm test:coverage
+        env:
+          VITE_APPWRITE_ENDPOINT: ${{ secrets.VITE_APPWRITE_ENDPOINT }}
+          VITE_APPWRITE_PROJECT_ID: ${{ secrets.VITE_APPWRITE_PROJECT_ID }}
+          VITE_APPWRITE_DATABASE_ID: ${{ secrets.VITE_APPWRITE_DATABASE_ID }}
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4

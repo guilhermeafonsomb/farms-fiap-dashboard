@@ -1,3 +1,4 @@
+import type { Product } from "@/model/products";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,15 +17,8 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
-
-type Product = {
-  nome: string;
-  lucro: number;
-  vendas: number;
-  periodo: "Semanal" | "Mensal" | "Anual";
-};
 
 interface ProductBarChartProps {
   data: Product[];
@@ -63,11 +57,11 @@ export const ProductBarChart = ({ data }: ProductBarChartProps) => {
   };
 
   const chartData = {
-    labels: data.map((produto) => produto.nome),
+    labels: data.map((product) => product.name),
 
     datasets: [
       {
-        data: data.map((produto) => produto.lucro),
+        data: data.map((product) => product.profit),
         backgroundColor: "rgba(235, 242, 232)",
         barThickness: 62,
         maxBarThickness: 62,

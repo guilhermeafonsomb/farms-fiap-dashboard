@@ -1,14 +1,21 @@
-import { Query, type Models } from "appwrite";
-import { tablesDB } from "@/lib/appwrite";
+import { Query } from "appwrite";
 import type { Product } from "@/model/products";
+import { tablesDB } from "@/lib/appwrite";
 
 export const fetchProductsByPeriod = async (
-  period: "Semanal" | "Mensal" | "Anual"
+  period: "WEEKLY" | "MONTHLY" | "YEARLY",
 ): Promise<Product[]> => {
-  const response = await tablesDB.listRows<Product & Models.Row>({
-    databaseId: "68d021ad002fe84e49fb",
-    tableId: "produtos",
-    queries: [Query.equal("periodo", period)],
-  });
-  return response.rows;
+  try {
+    const response = await tablesDB.listRows({
+      databaseId: import.meta.env.VITE_APPWRITE_DATABASE_ID,
+      tableId: import.meta.env.VITE_APPWRITE_TABLE_ID,
+      queries: [Query.equal("period", period)],
+    });
+
+    return response.rows as unknown as Product[];
+  } catch (error) {
+    console.error("Erro ao buscar produtos por período:", error);
+
+    return [];
+  }
 };
