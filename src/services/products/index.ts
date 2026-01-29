@@ -1,14 +1,14 @@
 import { Query } from "appwrite";
 import type { Product } from "@/model/products";
-import { tablesDB } from "@/lib/appwrite";
+import { APPWRITE_DATABASE_ID, APPWRITE_TABLE_ID, tablesDB } from "@/lib/appwrite";
 
 export const fetchProductsByPeriod = async (
   period: "WEEKLY" | "MONTHLY" | "YEARLY",
 ): Promise<Product[]> => {
   try {
     const response = await tablesDB.listRows({
-      databaseId: import.meta.env.VITE_APPWRITE_DATABASE_ID,
-      tableId: import.meta.env.VITE_APPWRITE_TABLE_ID,
+      databaseId: APPWRITE_DATABASE_ID,
+      tableId: APPWRITE_TABLE_ID,
       queries: [Query.equal("period", period)],
     });
 
