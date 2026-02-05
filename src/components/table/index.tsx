@@ -1,57 +1,58 @@
 import {
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-  type ColumnDef,
-} from "@tanstack/react-table";
-import clsx from "clsx";
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../ui/table";
+import type { ProductTable } from "@/model/products";
 
-interface TableProps<T> {
-  data: T[];
-  columns: ColumnDef<T>[];
+interface TableProps {
+  data: ProductTable[];
+  columns: string[];
 }
 
-export const Table = <T,>({ data, columns }: TableProps<T>) => {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
+export const TableComponent = ({ data, columns }: TableProps) => {
   return (
-    <table className="border border-primary-200 rounded-lg">
-      <caption className="sr-only">Dashboard de dados dos produtos</caption>
-      <thead className="rounded-lg border-b border-primary-200 text-left">
-        {table.getHeaderGroups().map((hg) => (
-          <tr key={hg.id}>
-            {hg.headers.map((header) => (
-              <th className="text-black px-2 py-3 " key={header.id} scope="col">
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
-              </th>
+    <>
+      {data.length > 0 ? (
+        <Table className="border border-primary-200 rounded-lg">
+          <TableCaption className="sr-only">
+            Dashboard de dados dos produtos
+          </TableCaption>
+          <TableHeader>
+            <TableRow>
+              {columns.map((column) => (
+                <TableHead className="font-bold text-black" key={column}>
+                  {column}
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.map((item) => (
+              <TableRow key={item.name}>
+                <TableCell className="font-semibold text-black">
+                  {item.name}
+                </TableCell>
+                <TableCell className="font-semibold text-primary-500">
+                  {item.profit}
+                </TableCell>
+                <TableCell className="font-semibold text-primary-500">
+                  {item.sales}
+                </TableCell>
+                <TableCell className="font-semibold text-primary-500">
+                  {item.period}
+                </TableCell>
+              </TableRow>
             ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <tr className="border-b " key={row.id}>
-            {row.getVisibleCells().map((cell, index) => (
-              <td
-                className={clsx(
-                  "px-2 py-3 text-left",
-                  index === 0 ? "text-black" : "text-primary-500"
-                )}
-                key={cell.id}
-              >
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+          </TableBody>
+        </Table>
+      ) : (
+        <p className="text-center text-black py-4">Nenhum dado disponível</p>
+      )}
+    </>
   );
 };
