@@ -23,7 +23,12 @@ export const DashboardFilter = ({ children }: DashboardFilterProps) => {
 
   return (
     <>
-      <Tabs defaultValue={FilterOptions[1]}>
+      <Tabs
+        value={selectFilterOption}
+        onValueChange={(value) =>
+          setSelectFilterOption(value as "WEEKLY" | "MONTHLY" | "YEARLY")
+        }
+      >
         <TabsList className="rounded-lg bg-primary-100 flex flex-row h-14 items-center justify-evenly px-3">
           {FilterOptions.map((option) => (
             <TabsTrigger
@@ -31,7 +36,6 @@ export const DashboardFilter = ({ children }: DashboardFilterProps) => {
               data-testid={`${option.toLowerCase()}-button`}
               aria-label={`Filtrar por dados ${handleReturnPtOption(option)}`}
               value={option}
-              onClick={() => setSelectFilterOption(option)}
             >
               {handleReturnPtOption(option)}
             </TabsTrigger>

@@ -154,13 +154,15 @@ test.describe("Dashboard E2E Tests", () => {
       await page.waitForTimeout(1000);
 
       const monthlyButton = page.getByTestId("monthly-button");
-      await expect(monthlyButton).toHaveClass(/bg-white/);
+      await expect(monthlyButton).toHaveAttribute("data-state", "active");
+      await expect(monthlyButton).toHaveClass(/font-semibold/);
 
       await page.getByTestId("weekly-button").click();
       await page.waitForTimeout(500);
 
       const weeklyButton = page.getByTestId("weekly-button");
-      await expect(weeklyButton).toHaveClass(/bg-white/);
+      await expect(weeklyButton).toHaveAttribute("data-state", "active");
+      await expect(weeklyButton).toHaveClass(/font-semibold/);
     });
   });
 
@@ -193,8 +195,8 @@ test.describe("Dashboard E2E Tests", () => {
       await page.goto("/");
       await page.waitForTimeout(1000);
 
-      const canvas = page.locator("canvas");
-      await expect(canvas).toBeVisible();
+      const chart = page.locator(".recharts-surface");
+      await expect(chart).toBeVisible();
     });
   });
 });
