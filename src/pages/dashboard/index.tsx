@@ -76,8 +76,9 @@ export const Dashboard = () => {
         <ProductBarChart data={productData} />
       </section>
 
-      <DashboardFilter />
-      <Table columns={tableColumns} data={transformData(products ?? [])} />
+      <DashboardFilter>
+        <Table columns={tableColumns} data={transformData(products ?? [])} />
+      </DashboardFilter>
     </section>
   );
 };
