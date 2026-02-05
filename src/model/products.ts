@@ -11,3 +11,10 @@ export type ProductChart = {
   sales: number;
   period: "WEEKLY" | "MONTHLY" | "YEARLY";
 };
+
+export type ProductTable = {
+  name: string;
+  profit: string;
+  sales: number;
+  period: string;
+};

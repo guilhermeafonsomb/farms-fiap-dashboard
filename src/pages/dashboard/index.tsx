@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { DashboardFilter } from "@/components/dashboardFilter";
-import { Table } from "@/components/table";
+import { TableComponent as Table } from "@/components/table";
 import { useProductsByPeriod } from "@/hooks/useProductsByPeriod";
 import type { Product, ProductChart } from "@/model/products";
 import { useDashboardFilterStore } from "@/store/dashboard";
@@ -32,6 +32,7 @@ export const Dashboard = () => {
       sales: item.sales,
       period: item.period,
     }));
+
     setProductData(formatData);
   };
 
@@ -47,16 +48,11 @@ export const Dashboard = () => {
     return <Error />;
   }
 
-  const tableColumns = [
-    { accessorKey: "products", header: "Produtos" },
-    { accessorKey: "profit", header: "Lucro" },
-    { accessorKey: "sales", header: "Vendas" },
-    { accessorKey: "period", header: "Período" },
-  ];
+  const tableColumns = ["Produtos", "Lucro", "Vendas", "Período"];
 
   const transformData = (apiData: Product[]) => {
     return apiData.map((item) => ({
-      products: item.name,
+      name: item.name,
       profit: formatCurrency(item.profit),
       sales: item.sales,
       period: translatePeriod(item.period),
@@ -67,17 +63,27 @@ export const Dashboard = () => {
     <section className="flex flex-col gap-6">
       <h1 className="text-2xl text-black font-bold">Dashboard de Produtos</h1>
 
-      <h2 className="text-lg text-black font-bold">Produtos por maior lucro</h2>
+      {productData.length > 0 && (
+        <>
+          <h2 className="text-lg text-black font-bold">
+            Produtos por maior lucro
+          </h2>
+          <section
+            className="border border-primary-200 pr-12 rounded-lg"
+            aria-label="Barra de Lucro por produto"
+          >
+            <ProductBarChart products={products ?? []} />
+          </section>
+        </>
+      )}
 
-      <section
-        className="border border-primary-200 pr-12 rounded-lg"
-        aria-label="Barra de Lucro por produto"
-      >
-        <ProductBarChart data={productData} />
-      </section>
-
-      <DashboardFilter />
-      <Table columns={tableColumns} data={transformData(products ?? [])} />
+      <DashboardFilter>
+        {productData.length > 0 ? (
+          <Table columns={tableColumns} data={transformData(products ?? [])} />
+        ) : (
+          <p className="text-center text-black py-4">Nenhum dado disponível</p>
+        )}
+      </DashboardFilter>
     </section>
   );
 };

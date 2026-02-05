@@ -11,7 +11,7 @@ vi.mock("@/components/productBarChart ", () => ({
 }));
 
 vi.mock("@/components/table", () => ({
-  Table: ({ data }: { data: { products: string }[] }) => (
+  TableComponent: ({ data }: { data: { products: string }[] }) => (
     <div data-testid="mock-table">
       {data.map((d, i) => (
         <div key={i}>{d.products}</div>
@@ -23,10 +23,10 @@ vi.mock("@/components/table", () => ({
 describe("Dashboard tests", () => {
   const mockProducts = [
     {
-      nome: "Produto A",
-      lucro: 100,
-      vendas: 10,
-      periodo: "MONTHLY",
+      name: "Produto A",
+      profit: 100,
+      sales: 10,
+      period: "MONTHLY",
     },
   ];
 
@@ -75,5 +75,16 @@ describe("Dashboard tests", () => {
     expect(getByText("Dashboard de Produtos")).toBeInTheDocument();
     expect(getByTestId("mock-chart")).toBeInTheDocument();
     expect(getByTestId("mock-table")).toBeInTheDocument();
+  });
+
+  it("should render no data available message", () => {
+    (useProductsByPeriod as Mock).mockReturnValue({
+      isLoading: false,
+      data: [],
+      isError: false,
+    });
+
+    const { getByText } = render(<Dashboard />);
+    expect(getByText("Nenhum dado disponível")).toBeInTheDocument();
   });
 });

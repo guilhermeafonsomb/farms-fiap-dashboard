@@ -1,17 +1,13 @@
 import { render } from "@/test/test-utils";
-import { Table } from ".";
+import { TableComponent as Table } from ".";
+import type { ProductTable } from "@/model/products";
 
-const tableColumnsMock = [
-  { accessorKey: "name", header: "Produtos" },
-  { accessorKey: "profit", header: "Lucro" },
-  { accessorKey: "sales", header: "Vendas" },
-  { accessorKey: "period", header: "Período" },
-];
+const tableColumnsMock = ["Produtos", "Lucro", "Vendas", "Período"];
 
-const productsMock = [
+const productsMock: ProductTable[] = [
   {
     name: "Banana",
-    profit: 60.95,
+    profit: "R$ 60,95",
     sales: 7,
     period: "Anual",
   },
@@ -35,8 +31,8 @@ describe("Table tests", () => {
     );
 
     expect(getByText("Banana")).toBeInTheDocument();
-    expect(getByText("60.95")).toBeInTheDocument();
-    expect(getByText("7")).toBeInTheDocument();
+    expect(getByText("R$ 60,95")).toBeInTheDocument();
+    expect(getByText(7)).toBeInTheDocument();
     expect(getByText("Anual")).toBeInTheDocument();
   });
 });

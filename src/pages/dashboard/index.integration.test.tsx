@@ -1,11 +1,12 @@
-import { render, fireEvent, waitFor } from "@/test/test-utils";
+import { render, waitFor } from "@/test/test-utils";
 import { Dashboard } from ".";
 import { vi } from "vitest";
+import userEvent from "@testing-library/user-event";
 
 vi.mock("@/components/productBarChart ", () => ({
-  ProductBarChart: ({ data }: { data: any[] }) => (
+  ProductBarChart: ({ products }: { products: any[] }) => (
     <div data-testid="chart-container">
-      {data.map((d) => (
+      {products.map((d) => (
         <div key={d.name} data-testid="chart-item">
           {d.name} - {d.profit}
         </div>
@@ -15,7 +16,7 @@ vi.mock("@/components/productBarChart ", () => ({
 }));
 
 vi.mock("@/components/table", () => ({
-  Table: ({ data }: { data: any[] }) => (
+  TableComponent: ({ data }: { data: any[] }) => (
     <div data-testid="table-container">
       {data.map((d) => (
         <div key={d.products} data-testid="table-item">
@@ -28,6 +29,7 @@ vi.mock("@/components/table", () => ({
 
 describe("Dashboard Integration", () => {
   it("should update data when filter changes", async () => {
+    const user = userEvent.setup();
     const { getByText, queryByText } = render(<Dashboard />);
 
     await waitFor(() => {
@@ -35,7 +37,7 @@ describe("Dashboard Integration", () => {
     });
 
     const weeklyButton = getByText("Semanal");
-    fireEvent.click(weeklyButton);
+    await user.click(weeklyButton);
 
     await waitFor(() => {
       expect(getByText("Produto Semanal - 500")).toBeInTheDocument();

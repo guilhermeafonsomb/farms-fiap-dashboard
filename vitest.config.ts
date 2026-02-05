@@ -22,6 +22,7 @@ export default defineConfig({
         "src/test/**",
         "src/**/*.d.ts",
         "src/**/test-utils.tsx",
+        "src/components/ui/**",
         "node_modules/",
         "e2e/",
         "src/lib/**",

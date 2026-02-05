@@ -22,8 +22,6 @@ export default defineConfig({
         "@tanstack/react-query",
         "clsx",
         "zustand",
-        "chart.js",
-        "react-chartjs-2",
       ],
     }),
   ],
