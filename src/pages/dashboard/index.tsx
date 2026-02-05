@@ -63,7 +63,7 @@ export const Dashboard = () => {
     <section className="flex flex-col gap-6">
       <h1 className="text-2xl text-black font-bold">Dashboard de Produtos</h1>
 
-      {productData.length > 0 ? (
+      {productData.length > 0 && (
         <>
           <h2 className="text-lg text-black font-bold">
             Produtos por maior lucro
@@ -74,17 +74,16 @@ export const Dashboard = () => {
           >
             <ProductBarChart data={productData} />
           </section>
-
-          <DashboardFilter>
-            <Table
-              columns={tableColumns}
-              data={transformData(products ?? [])}
-            />
-          </DashboardFilter>
         </>
-      ) : (
-        <p className="text-center text-black py-4">Nenhum dado disponível</p>
       )}
+
+      <DashboardFilter>
+        {productData.length > 0 ? (
+          <Table columns={tableColumns} data={transformData(products ?? [])} />
+        ) : (
+          <p className="text-center text-black py-4">Nenhum dado disponível</p>
+        )}
+      </DashboardFilter>
     </section>
   );
 };
