@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { DashboardFilter } from "@/components/dashboardFilter";
 import { TableComponent as Table } from "@/components/table";
 import { useProductsByPeriod } from "@/hooks/useProductsByPeriod";
@@ -9,6 +9,15 @@ import { ProductBarChart } from "@/components/productBarChart ";
 import { Error } from "@/components/error";
 import { Loading } from "@/components/loading";
 import { translatePeriod } from "@/utils/translatePeriod/transformData";
+
+import { Bar, BarChart } from "recharts";
+
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "@/components/ui/chart";
 
 export const Dashboard = () => {
   const { selectFilterOption } = useDashboardFilterStore();
@@ -38,6 +47,28 @@ export const Dashboard = () => {
 
   useEffect(() => {
     transformChartData(products ?? []);
+  }, [products]);
+
+  const chartConfig = useMemo(() => {
+    const config: ChartConfig = {};
+    products?.forEach((item) => {
+      config[item.name] = {
+        label: item.name,
+        color: "#EBF2E8",
+      };
+    });
+    return config;
+  }, [products]);
+
+  const chartData = useMemo(() => {
+    return (
+      products?.map((item) => ({
+        name: item.name,
+        profit: item.profit,
+        sales: item.sales,
+        period: item.period,
+      })) || []
+    );
   }, [products]);
 
   if (isLoading) {
@@ -72,7 +103,7 @@ export const Dashboard = () => {
             className="border border-primary-200 pr-12 rounded-lg"
             aria-label="Barra de Lucro por produto"
           >
-            <ProductBarChart data={productData} />
+            <ProductBarChart products={products ?? []} />
           </section>
         </>
       )}

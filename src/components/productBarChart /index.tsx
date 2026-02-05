@@ -1,82 +1,40 @@
 import type { Product } from "@/model/products";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  type ChartOptions,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-);
+import { ChartContainer, type ChartConfig } from "../ui/chart";
+import { BarChart, Bar } from "recharts";
+import { useMemo } from "react";
 
 interface ProductBarChartProps {
-  data: Product[];
+  products: Product[];
 }
 
-export const ProductBarChart = ({ data }: ProductBarChartProps) => {
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    type: "bar",
-    scales: {
-      y: {
-        beginAtZero: true,
-        grid: { display: false },
-        ticks: { display: false },
-        border: { display: false },
-      },
-      x: {
-        type: "category",
+export const ProductBarChart = ({ products }: ProductBarChartProps) => {
+  const chartData = useMemo(() => {
+    return (
+      products?.map((item) => ({
+        name: item.name,
+        profit: item.profit,
+        sales: item.sales,
+        period: item.period,
+      })) || []
+    );
+  }, [products]);
 
-        bounds: "data",
-        ticks: {
-          color: "#61944F",
-          font: {
-            weight: "bold",
-            size: 14,
-          },
-        },
-        grid: { display: false },
-        border: { display: false },
-      },
-    },
-    plugins: {
-      legend: { display: false },
-    },
-  };
-
-  const chartData = {
-    labels: data.map((product) => product.name),
-
-    datasets: [
-      {
-        data: data.map((product) => product.profit),
-        backgroundColor: "rgba(235, 242, 232)",
-        barThickness: 62,
-        maxBarThickness: 62,
-        barPercentage: 0.6,
-        categoryPercentage: data.length <= 3 ? 0.4 : 0.8,
-        grouped: true,
-      },
-    ],
-  };
+  const chartConfig = useMemo(() => {
+    const config: ChartConfig = {};
+    products?.forEach((item) => {
+      config[item.name] = {
+        label: item.name,
+        color: "#EBF2E8",
+      };
+    });
+    return config;
+  }, [products]);
 
   return (
-    <Bar
-      data-testid="bar"
-      options={options as ChartOptions<"bar">}
-      data={chartData}
-    />
+    <ChartContainer config={chartConfig} className="h-96 w-full">
+      <BarChart accessibilityLayer data={chartData}>
+        <Bar dataKey="profit" fill="#EBF2E8" radius={4} barSize={100} />
+      </BarChart>
+    </ChartContainer>
   );
 };

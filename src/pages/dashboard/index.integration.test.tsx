@@ -3,9 +3,9 @@ import { Dashboard } from ".";
 import { vi } from "vitest";
 
 vi.mock("@/components/productBarChart ", () => ({
-  ProductBarChart: ({ data }: { data: any[] }) => (
+  ProductBarChart: ({ products }: { products: any[] }) => (
     <div data-testid="chart-container">
-      {data.map((d) => (
+      {products.map((d) => (
         <div key={d.name} data-testid="chart-item">
           {d.name} - {d.profit}
         </div>
