@@ -17,7 +17,7 @@ export default defineConfig({
   ],
 
   use: {
-    baseURL: process.env.BASE_URL || "http://localhost:5001",
+    baseURL: "http://localhost:5001",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
@@ -56,12 +56,10 @@ export default defineConfig({
         },
       ],
 
-  webServer: process.env.CI
-    ? undefined
-    : {
-        command: "pnpm dev",
-        url: "http://localhost:5001",
-        reuseExistingServer: true,
-        timeout: 120 * 1000,
-      },
+  webServer: {
+    command: process.env.CI ? "pnpm preview" : "pnpm dev",
+    url: "http://localhost:5001",
+    reuseExistingServer: !process.env.CI,
+    timeout: 30 * 1000,
+  },
 });
