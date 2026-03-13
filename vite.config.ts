@@ -1,29 +1,32 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { withZephyr } from "vite-plugin-zephyr";
+import { federation } from "@module-federation/vite";
 import path from "path";
+
+const mfConfig = {
+  name: "dashboard-app",
+  filename: "remoteEntry.js",
+  exposes: {
+    "./FarmsFiapDashboard": "./src/App.tsx",
+  },
+  shared: {
+    react: { singleton: true, requiredVersion: "^19.0.0" },
+    "react-dom": { singleton: true, requiredVersion: "^19.0.0" },
+    "react-router-dom": { singleton: true },
+    "@tanstack/react-query": { singleton: true },
+    zustand: { singleton: true },
+    clsx: {},
+  },
+  dts: false,
+};
 
 export default defineConfig({
   plugins: [
     react(),
-    withZephyr({
-      mfConfig: {
-        name: "dashboard-app",
-        filename: "remoteEntry.js",
-        exposes: {
-          "./FarmsFiapDashboard": "./src/App.tsx",
-        },
-        shared: {
-          react: { singleton: true, requiredVersion: "^19.0.0" },
-          "react-dom": { singleton: true, requiredVersion: "^19.0.0" },
-          "react-router-dom": { singleton: true },
-          "@tanstack/react-query": { singleton: true },
-          zustand: { singleton: true },
-          clsx: {},
-        },
-        dts: false,
-      },
-    }),
+    process.env.SKIP_ZEPHYR === "true"
+      ? federation(mfConfig)
+      : withZephyr({ mfConfig }),
   ],
   resolve: {
     alias: {

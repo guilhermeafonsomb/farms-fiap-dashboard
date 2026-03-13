@@ -163,6 +163,8 @@ jobs:
           VITE_APPWRITE_PROJECT_ID: ${{ secrets.VITE_APPWRITE_PROJECT_ID }}
           VITE_APPWRITE_DATABASE_ID: ${{ secrets.VITE_APPWRITE_DATABASE_ID }}
           VITE_APPWRITE_TABLE_ID: ${{ secrets.VITE_APPWRITE_TABLE_ID }}
+          ZE_SERVER_TOKEN: ${{ secrets.ZE_SERVER_TOKEN }}
+          ZE_USER_EMAIL: ${{ secrets.ZE_USER_EMAIL }}
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4

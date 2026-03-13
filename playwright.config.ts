@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
@@ -56,7 +57,9 @@ export default defineConfig({
       ],
 
   webServer: {
-    command: process.env.CI ? "pnpm build && pnpm preview" : "pnpm dev",
+    command: process.env.CI
+      ? "SKIP_ZEPHYR=true pnpm build && pnpm preview"
+      : "pnpm dev",
     url: "http://localhost:5001",
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
