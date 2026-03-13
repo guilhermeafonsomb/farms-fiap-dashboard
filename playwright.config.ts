@@ -58,7 +58,7 @@ export default defineConfig({
 
   webServer: {
     command: process.env.CI
-      ? "SKIP_ZEPHYR=true pnpm build && pnpm preview"
+      ? "pnpm build:e2e && pnpm preview"
       : "pnpm dev",
     url: "http://localhost:5001",
     reuseExistingServer: !process.env.CI,
