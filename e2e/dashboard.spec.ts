@@ -176,7 +176,7 @@ test.describe("Dashboard E2E Tests", () => {
         page.getByRole("columnheader", { name: "Produtos" }),
       ).toBeVisible();
       await expect(
-        page.getByRole("columnheader", { name: "Lucro" }),
+        page.getByRole("columnheader", { name: "Lucros" }),
       ).toBeVisible();
       await expect(
         page.getByRole("columnheader", { name: "Vendas" }),

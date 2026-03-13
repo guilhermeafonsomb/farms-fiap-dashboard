@@ -48,7 +48,7 @@ export const Dashboard = () => {
     return <Error />;
   }
 
-  const tableColumns = ["Produtos", "Lucro", "Vendas", "Período"];
+  const tableColumns = ["Produtos", "Lucros", "Vendas", "Período"];
 
   const transformData = (apiData: Product[]) => {
     return apiData.map((item) => ({
