@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { ModuleFederationOptions, withZephyr } from "vite-plugin-zephyr";
 import { federation } from "@module-federation/vite";
+import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 import path from "path";
 
 const mfConfig: ModuleFederationOptions = {
@@ -26,6 +27,7 @@ export default defineConfig({
   base: process.env.ZE_PUBLIC_PATH || "/",
   plugins: [
     react(),
+    cssInjectedByJsPlugin(),
     process.env.SKIP_ZEPHYR === "true"
       ? federation(mfConfig)
       : withZephyr({ mfConfig }),
