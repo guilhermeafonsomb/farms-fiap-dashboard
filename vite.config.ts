@@ -23,7 +23,7 @@ const mfConfig = {
 };
 
 export default defineConfig({
-  base: process.env.VITE_PUBLIC_PATH || "/",
+  base: process.env.ZE_PUBLIC_PATH || "/",
   plugins: [
     react(),
     process.env.SKIP_ZEPHYR === "true"
@@ -37,6 +37,11 @@ export default defineConfig({
   },
   optimizeDeps: {
     needsInterop: ["react", "@tanstack/react-query", "clsx", "zustand"],
+  },
+  experimental: {
+    renderBuiltUrl() {
+      return { relative: true };
+    },
   },
   build: {
     target: "esnext",
