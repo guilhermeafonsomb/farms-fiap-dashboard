@@ -38,6 +38,11 @@ export default defineConfig({
   optimizeDeps: {
     needsInterop: ["react", "@tanstack/react-query", "clsx", "zustand"],
   },
+  experimental: {
+    renderBuiltUrl() {
+      return { relative: true };
+    },
+  },
   build: {
     target: "esnext",
     minify: false,
