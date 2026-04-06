@@ -43,3 +43,7 @@ pnpm test:e2e
 ## host project
 
 [host](https://github.com/guilhermeafonsomb/farms-fiap-host)
+
+## Site in Vercel
+
+[Farms Fiap](https://farms-fiap.vercel.app)

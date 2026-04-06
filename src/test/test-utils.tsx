@@ -46,6 +46,6 @@ export function customRender(
 
 export * from "@testing-library/react";
 
-export { expect, describe, it, vi, beforeEach, afterEach, beforeAll, afterAll } from "vitest";
+export * from "vitest";
 
 export { customRender as render };
