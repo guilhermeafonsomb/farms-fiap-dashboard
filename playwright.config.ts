@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
@@ -57,9 +56,7 @@ export default defineConfig({
       ],
 
   webServer: {
-    command: process.env.CI
-      ? "npx serve dist -p 5001 -s"
-      : "pnpm dev",
+    command: "pnpm dev",
     url: "http://localhost:5001",
     reuseExistingServer: !process.env.CI,
     timeout: 60 * 1000,

@@ -1,4 +1,3 @@
-import "./index.css";
 import { Dashboard } from "./pages/dashboard";
 
 const App = () => {
